@@ -15,7 +15,7 @@ public class ex2 : MonoBehaviour {
 	private Transform UpperEdge;
 	private Transform LowerEdge;
 
-	private float mv_speed = 1F;
+	private float mv_speed;
 	
 	private Color mv_color;
 
@@ -30,6 +30,7 @@ public class ex2 : MonoBehaviour {
 
 		mo_gem = Instantiate(GemPrefab);
 		mv_color = Random.ColorHSV(0,1);
+		mv_speed = 1F;
 	}
 	
 	// Update is called once per frame
@@ -47,6 +48,7 @@ public class ex2 : MonoBehaviour {
 		}
 		else if (mv_direction == Vector2.left)
 		{
+			//perform_left_right_response( mo_gem, mv_direction );
 			move_object_to_direction( mo_gem, mv_direction, mv_speed );
 
 			if ( mo_gem.transform.position.x <= LeftEdge.position.x )
@@ -110,7 +112,32 @@ public class ex2 : MonoBehaviour {
 	}
 
 	private void change_color_of_object( GameObject io_gem ){
-		mo_gem.GetComponent<SpriteRenderer>().color = Random.ColorHSV(0,1);
+		io_gem.GetComponent<SpriteRenderer>().color = Random.ColorHSV(0,1);
 	}
 
+	private void perform_left_right_response( GameObject io_gem, Vector2 iv_direction ){
+		
+		move_object_to_direction( io_gem, iv_direction, mv_speed );
+
+		if ( _reached_left_edge( io_gem ) || _reached_right_edge( io_gem ) ) {
+			change_color_of_object( io_gem );
+			iv_direction = get_new_direction();
+		}
+	}
+
+	private bool _reached_right_edge( GameObject io_gem ){
+		if ( mo_gem.transform.position.x >= RightEdge.position.x )
+			{
+				return true;
+			}
+		return false;
+	}
+
+	private bool _reached_left_edge( GameObject io_gem ){
+		if ( mo_gem.transform.position.x <= LeftEdge.position.x )
+			{
+				return true;
+			}
+		return false;
+	}
 }
