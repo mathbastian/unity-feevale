@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ex2 : MonoBehaviour {
 
+	// Comment for GitHub
+
 	public GameObject GemPrefab;
 
 	private GameObject mo_gem;
