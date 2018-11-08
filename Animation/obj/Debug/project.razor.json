@@ -1,0 +1,14 @@
+{
+  "ProjectFilePath": "c:\\Users\\i860773\\OneDrive - SAP SE\\Documents\\GitHub\\unity-feevale\\Animation\\Assembly-CSharp.csproj",
+  "TargetFramework": "v3.5",
+  "TagHelpers": [],
+  "Configuration": {
+    "ConfigurationName": "UnsupportedRazor",
+    "LanguageVersion": "1.0",
+    "Extensions": [
+      {
+        "ExtensionName": "UnsupportedRazorExtension"
+      }
+    ]
+  }
+}

@@ -1,31 +1,72 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Controller : MonoBehaviour {
 
 	public GameObject Inicio;
 	public GameObject Fim;
 
-	private static float Speed 	   = 6;
-	private static float JumpForce = 4;
+	private string name;
+
+	private static float Speed 	   = 6F;
+	private static float JumpForce = 5F;
+
+	private float time = 0F;
+	private float result;
 
 	private bool		 double_jump_bonus = false;
 	private bool		 is_colliding = false;
 	private bool		 is_alvo;
 
 	private Animator 	 animator;
-	private Rigidbody2D  rigidbody;
+	private Rigidbody2D  rigidBody;
+
+	void Awake(){
+		DontDestroyOnLoad(gameObject);
+	}
 
 	// Use this for initialization
 	void Start () {
+		name = PlayerPrefs.GetString("name");
 		animator  = GetComponent<Animator>();
-		rigidbody = GetComponent<Rigidbody2D>();
+		rigidBody = GetComponent<Rigidbody2D>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		control();
+		maintain_score();
+	}
+
+	void maintain_score(){
+		if ( SceneManager.GetActiveScene().buildIndex == 1 )
+		{
+			time += Time.deltaTime;
+		}
+		else if ( SceneManager.GetActiveScene().buildIndex == 2 )
+		{
+			stop_score();
+			display_results();
+			clear();
+			Destroy(gameObject);
+		}
+	}
+
+	void clear(){
+		PlayerPrefs.DeleteKey("name");
+	}
+
+	void stop_score(){
+		result = time;
+	}
+
+	void display_results(){
+		GameObject.FindGameObjectWithTag("scoreboard").GetComponent<Text>().text += "\n "+name+": "+result;
+		//GetComponent<ControllerEnd>().append_winner(this);
+		//GetComponent<ControllerEnd>().display_results();
 	}
 
 	void RayCasting(){
@@ -47,7 +88,7 @@ public class Controller : MonoBehaviour {
 		// Normal movement
 		if ( Input.GetAxisRaw("Horizontal") > 0 ) {
 			run();
-			rotate_to_right( ref rigidbody );
+			rotate_to_right( ref rigidBody );
 			move_to_direction( Vector2.right );
 		}
 		else if ( Input.GetAxisRaw("Horizontal") < 0 ) {
@@ -76,7 +117,7 @@ public class Controller : MonoBehaviour {
 	}
 
 	void rotate_to_left(){
-		rigidbody.transform.eulerAngles = new Vector2(0,180);
+		rigidBody.transform.eulerAngles = new Vector2(0,180);
 	}
 
 	void move_to_direction( Vector2 Direction ){
@@ -85,7 +126,7 @@ public class Controller : MonoBehaviour {
 	}
 
 	void jump(){
-		rigidbody.AddForce( transform.up * JumpForce, ForceMode2D.Impulse );
+		rigidBody.AddForce( transform.up * JumpForce, ForceMode2D.Impulse );
 		//animator.SetTrigger("Jump");
 	}
 
@@ -100,11 +141,27 @@ public class Controller : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D( Collision2D io_collider ){
+		
+		// Checking if it is a gem...
+		if ( io_collider.gameObject.tag == "gem" ){
+			is_colliding = false;
+			io_collider.gameObject.GetComponent<Gem>().Catch();
+			return;
+		}
+		
 		is_colliding = true;
 	}
 
 	void OnCollisionExit2D( Collision2D io_collider ){
 		is_colliding = false;
+	}
+
+	public string get_name(){
+		return name;
+	}
+
+	public float get_result(){
+		return result;
 	}
 
 }
