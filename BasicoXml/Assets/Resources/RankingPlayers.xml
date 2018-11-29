@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Ranking xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <players>
+    <nome>CARLOS</nome>
+    <ponto>12</ponto>
+  </players>
+  <players>
+    <nome>sffefewfew</nome>
+    <ponto>21423432</ponto>
+  </players>
+  <players>
+    <nome>Rubens</nome>
+    <ponto>200</ponto>
+  </players>
+  <players>
+    <nome>TEste Aula</nome>
+    <ponto>5600</ponto>
+  </players>
+  <players>
+    <nome>zazazazza</nome>
+    <ponto>504789</ponto>
+  </players>
+  <players>
+    <nome>jose</nome>
+    <ponto>20</ponto>
+  </players>
+  <players>
+    <nome>Mario</nome>
+    <ponto>10000</ponto>
+  </players>
+  <players>
+    <nome>Mario</nome>
+    <ponto>1</ponto>
+  </players>
+  <players>
+    <nome>Mario</nome>
+    <ponto>222</ponto>
+  </players>
+  <players>
+    <nome>Mario</nome>
+    <ponto>444</ponto>
+  </players>
+  <players>
+    <nome>teste</nome>
+    <ponto>2121</ponto>
+  </players>
+</Ranking>
